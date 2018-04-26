@@ -1,0 +1,96 @@
+<!--{block return}-->
+<style type="text/css">
+.specialinfo { width:460px; }
+.optionupload { float:left; margin:2px 6px 4px 0px; height:15px; line-height:15px; }
+.specialinfo textarea { float:left; margin-right:6px; width:300px; height:60px; }
+.pollimage { float:left; }
+.goodsimg { max-width:134px; max-height:146px; width:auto; width:expression(this.width>134&&this.height<this.width?134:true); height:expression(this.height>146?146:true); }
+.specialaddons { width:250px; }
+</style>
+<script type="text/javascript">
+var curobj = '';
+function updateimgpolloptionattach(aid, url, attachurl) {
+	var curObj = curobj.parentNode.parentNode.childNodes;
+	for(var i = 0; i < curObj.length; i++) {
+		if (curObj[i].id == 'imgpolloptionaid') {
+			curObj[i].value = aid;
+		}
+		if (curObj[i].id == 'imgpolloptionattach_image') {
+			curObj[i].innerHTML = '<img src="' + attachurl + '/' + url + '" class="goodsimg" />';
+		}
+	}
+	curobj = ''
+}
+function setimgpolloptionattach(obj) {
+	curobj = obj;
+}
+function cleartextarea(obj) {
+	if (obj.style.color == '#ccc') {
+		obj.style.color = '#000';
+		obj.innerHTML = '';
+	}
+}
+</script>
+<input type="hidden" name="imgpolls" value="yes" />
+<div class="specialpost s_clear">
+	<p><em>{lang post_poll_options}:</em>{lang post_poll_comment} {lang imgpoll:post_imgpoll_option_image_readme}</p>
+	<div class="specialinfo sppoll">
+		<!--{if $action == 'newthread'}-->
+			<span id="imgpolloption_new"></span>
+			<p id="imgpolloption_hidden" style="display: none">
+				<input name="imgpolloption[]" type="text" class="optioninfo txt" tabindex="1" />
+				<span class="optionupload">{lang imgpoll:post_imgpoll_option_image}: <a href="javascript:;" onclick="setimgpolloptionattach(this);uploadWindow(function (aid, url){updateimgpolloptionattach(aid, url, 'attachments')});">{lang imgpoll:post_imgpoll_option_image_upload}</a></span>
+				<a href="javascript:;" class="deloption" title="del" onclick="this.parentNode.parentNode.removeChild(this.parentNode)">del</a>
+				<input type="hidden" name="imgpolloptionaid[]" id="imgpolloptionaid" value="" tabindex="1" />
+				<textarea name="imgpolloptiondesc[]" class="optiondesc" style="color:#CCC;" onfocus="cleartextarea(this)" tabindex="2">{lang imgpoll:post_imgpoll_desc_readme}</textarea>
+				<span id="imgpolloptionattach_image" class="pollimage"></span>
+			</p>
+			<p><a href="javascript:;" onclick="addimgpolloption()">+{lang post_poll_add}</a></p>
+		<!--{else}-->
+			<!--{loop $imgpoll['polloption'] $key $option}-->
+			<p>
+				<input type="hidden" name="imgpolloptionid[$key]" value="$key" />
+				<input name="displayorder[$key]" type="text" class="optionnum txt" tabindex="1" value="$option[displayorder]" />
+				<input name="imgpolloption[$key]" type="text" class="optioninfo txt" style="width:272px;" tabindex="1" value="$option[polloption]"<!--{if !$alloweditpoll}--> readonly<!--{/if}-->/>
+				<span class="optionupload">{lang imgpoll:post_imgpoll_option_image}: <!--{if $alloweditpoll}--><a href="javascript:;" onclick="setimgpolloptionattach(this);uploadWindow(function (aid, url){updateimgpolloptionattach(aid, url, 'attachments')});">{lang imgpoll:post_imgpoll_option_image_upload}</a><!--{/if}--></span>
+				<input type="hidden" name="imgpolloptionaid[$key]" id="imgpolloptionaid" value="$option[aid]" tabindex="1" />
+				<textarea name="imgpolloptiondesc[$key]" class="optiondesc" onfocus="cleartextarea(this)" tabindex="2"><!--{if $option['describe']}-->$option[describe]<!--{else}-->{lang imgpoll:post_imgpoll_desc_readme}<!--{/if}--></textarea>
+				<span id="imgpolloptionattach_image" class="pollimage"><img class="goodsimg" src="$option[attachment]"></span>
+			</p>
+			<!--{/loop}-->
+			<span id="imgpolloption_new"></span>
+			<p id="imgpolloption_hidden" style="display: none">
+				<input name="displayorder[]" type="text" class="optionnum txt" tabindex="1" value="0" />
+				<input name="imgpolloption[]" type="text" class="optioninfo txt" style="width:272px;" tabindex="1" />
+				<span class="optionupload">{lang imgpoll:post_imgpoll_option_image}: <a href="javascript:;" onclick="setimgpolloptionattach(this);uploadWindow(function (aid, url){updateimgpolloptionattach(aid, url, 'attachments')});">{lang imgpoll:post_imgpoll_option_image_upload}</a></span>
+				<a href="javascript:;" class="deloption" title="del" onclick="this.parentNode.parentNode.removeChild(this.parentNode)">del</a>
+				<input type="hidden" name="imgpolloptionaid[]" id="imgpolloptionaid" value="" tabindex="1" />
+				<textarea name="imgpolloptiondesc[]" class="optiondesc" style="color:#CCC;" onfocus="cleartextarea(this)" tabindex="2">{lang imgpoll:post_imgpoll_desc_readme}</textarea>
+				<span id="imgpolloptionattach_image" class="pollimage"></span>
+			</p>
+			<p><a href="javascript:;" onclick="addimgpolloption()">+{lang post_poll_add}</a></p>
+		<!--{/if}-->
+	</div>
+	<div class="specialaddons">
+		<p><label for="imgpollnum"><input name="multiplepoll" type="checkbox" value="1"{if $imgpoll[multiple]} checked{/if} tabindex="1" />{lang post_poll_allowmultiple}</label> <input name="maxchoices" class="spshortinput txt" value="$imgpoll[maxchoices]" type="text" tabindex="1" /></p>
+		<p><label for="imgpolldatas"><input name="expirationchecked" type="checkbox" value="1"{if $imgpoll[expiration]} checked{/if} tabindex="1" />{lang post_poll_expiration}</label> <input id="imgpolldatas" name="expiration" class="spshortinput txt" type="text" value="{if !$imgpoll[expiration]}0{elseif $imgpoll[expiration] < 0}{lang poll_close}{elseif $imgpoll[expiration] < $timestamp}{lang poll_finish}{else}{eval print_r(round(($imgpoll[expiration] - $timestamp) / 86400));} {/if}" tabindex="1" /></p>
+		<p><input name="visibilitypoll" type="checkbox" value="1"{if $action == 'edit' && !$imgpoll[visible]} checked{/if} tabindex="1" />{lang poll_after_result}</p>
+		<p><input name="overt" type="checkbox" value="1"{if $action == 'edit' && $imgpoll[overt]} checked{/if} tabindex="1" />{lang post_poll_overt}</p>
+		<p><input name="allowguestpoll" type="checkbox" value="1"{if $action == 'edit' && $imgpoll[allowguestpoll]} checked{/if} tabindex="1" />{lang imgpoll:post_imgpoll_allowguestpoll}</p>
+		<p><input name="allowpollnumcheck" type="checkbox" value="1"{if $imgpoll[allowpollnum]} checked{/if} tabindex="1" />{lang imgpoll:post_imgpoll_allowpollnum} <input name="allowpollnum" class="spshortinput txt" type="text" value="$imgpoll[allowpollnum]" tabindex="1" /></p>
+	</div>
+</div>
+
+<script type="text/javascript" reload="1">
+function addimgpolloption() {
+	$('imgpolloption_new').outerHTML = '<p>' + $('imgpolloption_hidden').innerHTML + '</p>' + $('imgpolloption_new').outerHTML
+}
+{if $action == 'newthread'}
+	addimgpolloption();
+	addimgpolloption();
+	addimgpolloption();
+	addimgpolloption();
+	addimgpolloption();
+{/if}
+</script>
+<!--{/block}-->

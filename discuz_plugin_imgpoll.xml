@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[7.1]]></item>
+	<item id="Time"><![CDATA[2009-11-25 17:45]]></item>
+	<item id="From"><![CDATA[Discuz! Board (http://localhost/comsenz7/bbs71/)]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[Í¼Æ¬Í¶Æ±Ìù]]></item>
+			<item id="identifier"><![CDATA[imgpoll]]></item>
+			<item id="description"><![CDATA[ÔÚÔ­ÓÐÍ¶Æ±ÌùµÄÀíÄîÉÏ£¬¸øÍ¶Æ±Ñ¡Ïî¸½¼ÓÁËÍ¼Æ¬ºÍ¼ò½é£¬²¢¿ÉÒÔÉèÖÃÃ¿¸öÈË¶ÔÍ¬Ò»Ñ¡Ïî¶à´ÎÍ¶Æ±µÈ¡£»ù´¡È¨ÏÞµÄ´¦ÀíÍ¬Ô­ÓÐÍ¶Æ±Ò»ÖÂ¡£]]></item>
+			<item id="datatables"><![CDATA[imgpolls,imgpolloptions]]></item>
+			<item id="directory"><![CDATA[imgpoll/]]></item>
+			<item id="copyright"><![CDATA[Ted]]></item>
+			<item id="version"><![CDATA[1.0.1]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[imgpoll]]></item>
+					<item id="type"><![CDATA[12]]></item>
+					<item id="adminid"><![CDATA[1]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[7.1]]></item>
+		<item id="vars">
+			<item id="0">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[ÊÇ·ñÏÔÊ¾¿ÉÍ¶Æ±Êý]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[showallowpollnum]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[Í¼Æ¬Í¶Æ±×î´óÑ¡ÏîÊý]]></item>
+				<item id="description"><![CDATA[Éè¶¨·¢²¼Í¼Æ¬Í¶Æ±°üº¬µÄ×î´óÑ¡ÏîÊý]]></item>
+				<item id="variable"><![CDATA[maximgpolloptions]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[50]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[Ö÷ÌâÄÚÈÝÏÔÊ¾Î»ÖÃ]]></item>
+				<item id="description"><![CDATA[Ö÷ÌâÄÚÈÝÏÔÊ¾ÔÚÍ¼Æ¬Í¶Æ±ÌùµÄÎ»ÖÃ£¬½ö°üº¬ÄÚÈÝ£¬Î´Ê¹ÓÃµÄ¸½¼þÁÐ±íÈÔÔÚÑ¡ÏîµÄÏÂÃæÏÔÊ¾]]></item>
+				<item id="variable"><![CDATA[messageshowposition]]></item>
+				<item id="type"><![CDATA[select]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[1=ÏÔÊ¾ÔÚÍ¶Æ±Ñ¡ÏîÉÏ·½
+2=ÏÔÊ¾ÔÚÍ¶Æ±Ñ¡ÏîÏÂ·½]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[ÊÇ·ñÏÔÊ¾²ÎÓëÍ¶Æ±ÈËÊý]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[showpollvoters]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+		</item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="only_for_members"><![CDATA[±¾´ÎÍ¶Æ±½öÕë¶Ô±¾ÂÛÌ³»áÔ±½øÐÐ£¬ÇëµÇÂ¼]]></item>
+				<item id="have_not_allowpollnum"><![CDATA[ÄúÒÑ¾­Íê³ÉÁËÍ¶Æ±£¬»ò³¬³öÁËÉèÖÃµÄÃ¿ÈË¿ÉÍ¶Æ±Êý]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="post_imgpoll_option_image"><![CDATA[Ñ¡ÏîÍ¼Æ¬]]></item>
+				<item id="post_imgpoll_option_image_readme"><![CDATA[(ÉÏ´«µÄÑ¡ÏîÍ¼Æ¬´óÐ¡Îª134ÏñËØx146ÏñËØ)]]></item>
+				<item id="post_imgpoll_option_image_upload"><![CDATA[µã»÷ÉÏ´«]]></item>
+				<item id="post_imgpoll_desc_readme"><![CDATA[ÇëÌîÐ´¸ÃÑ¡ÏîµÄËµÃ÷]]></item>
+				<item id="post_imgpoll_allowguestpoll"><![CDATA[ÓÎ¿Í¿ÉÍ¶Æ± (²»Ñ¡±íÊ¾½ö»áÔ±¿ÉÍ¶Æ±)]]></item>
+				<item id="post_imgpoll_allowpollnum"><![CDATA[Ã¿ÈË¿ÉÍ¶Æ±Êý]]></item>
+				<item id="viewthread_imgpoll_votenum"><![CDATA[µÃÆ±Êý]]></item>
+				<item id="viewthread_imgpoll_viewnum"><![CDATA[ÈËÆøÊý]]></item>
+				<item id="viewthread_imgpoll_more"><![CDATA[ÏêÇé]]></item>
+				<item id="viewthread_imgpoll_pollvote"><![CDATA[Í¶Æ±]]></item>
+				<item id="viewthread_imgpoll_subject"><![CDATA[±êÌâ]]></item>
+				<item id="viewthread_imgpoll_describe"><![CDATA[¼ò½é]]></item>
+				<item id="viewthread_imgpoll_oredrbydisplayorder"><![CDATA[Õý³£ÅÅÐò]]></item>
+				<item id="viewthread_imgpoll_oredrbyviews"><![CDATA[ÈËÆøÅÅÐÐ]]></item>
+				<item id="viewthread_imgpoll_oredrbyvotes"><![CDATA[Æ±ÊýÅÅÐÐ]]></item>
+				<item id="viewthread_imgpoll_maxpollnum1"><![CDATA[Ã¿ÈË×î¶à¿ÉÍ¶]]></item>
+				<item id="viewthread_imgpoll_maxpollnum2"><![CDATA[Æ±£¬»¹Ê£]]></item>
+				<item id="viewthread_imgpoll_maxpollnum3"><![CDATA[Æ±¿ÉÒÔÍ¶]]></item>
+			</item>
+			<item id="installlang">
+				<item id="text"><![CDATA[°²×°ÓïÑÔÎÄ×Ö]]></item>
+			</item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+	</item>
+</root>

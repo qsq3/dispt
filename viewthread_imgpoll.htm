@@ -1,0 +1,138 @@
+<!--{block return}-->
+<style type="text/css">
+.pollinfo { height:23px; }
+.polloption { text-align:center; }
+	.polloption a { color: {HIGHLIGHTLINK}; }
+	.polloption img { max-width:134px; max-height:146px; width:auto; width:expression(this.width>134&&this.height<this.width?134:true); height:expression(this.height>146?146:true); }
+	.polloption_img { width:134px; height:146px; margin:0 auto; }
+.pollchart { width:100%; }
+.imgpoll_info { float:left; height:23px; padding-top:3px; *+padding-top:5px; }
+.imgpoll_order { float:right; margin-right:30px; }
+	.imgpoll_order a { color:#000000; text-decoration:none; }
+	 ul.imgpoll_order a { cursor:pointer; display:block; height:23px; overflow:hidden; }
+	 ul.imgpoll_order a span { display:block; height:23px; padding:3px 7px; *+padding:5px 7px; }
+	.imgpoll_order li { float:left; margin-right:5px; width:62px; }
+	 ul.imgpoll_order .current a, ul.imgpoll_order .current a:hover, ul.imgpoll_order .current a.dropmenu:hover { background:#9B0000 url(images/default/btn_block.gif) no-repeat scroll 0 0; }
+	 ul.imgpoll_order .current a span, ul.imgpoll_order .current a:hover span { background:transparent url(images/default/btn_block.gif) no-repeat scroll 100% -23px; color:#FFFFFF; }
+.imgpoll_msg { background:{SPECIALBG}; border:{HIGHLIGHTLINK} 1px solid; width:100%; height:30px; *+height:24px; }
+</style>
+<script type="text/javascript">
+<!--{if $optiontype=='checkbox'}-->
+	var max_obj = $imgpollmaxchoices;
+	var p = 0;
+	function checkbox(obj) {
+		if(obj.checked) {
+			p++;
+			for (var i = 0; i < $('poll').elements.length; i++) {
+				var e = $('poll').elements[i];
+				if(p == max_obj) {
+					if(e.name.match('pollanswers') && !e.checked) {
+						e.disabled = true;
+					}
+				}
+			}
+		} else {
+			p--;
+			for (var i = 0; i < $('poll').elements.length; i++) {
+				var e = $('poll').elements[i];
+				if(e.name.match('pollanswers') && e.disabled) {
+					e.disabled = false;
+				}
+			}
+		}
+		$('pollsubmit').disabled = p <= max_obj && p > 0 ? false : true;
+	}
+<!--{/if}-->
+
+</script>
+<!--{if $messageshowposition == 1}-->
+<div class="specialmsg">
+	<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_$post[pid]">$post[message]</td></tr></table>
+</div>
+<!--{/if}-->
+<form id="poll" name="poll" method="post" action="plugin.php?id=imgpoll:votepoll&fid=$fid&tid=$tid&pollsubmit=yes&quickforward=yes" onsubmit="ajaxpost('poll', 'post_$post[pid]', 'post_$post[pid]');return false">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<div class="pollinfo">
+		<span class="imgpoll_info">
+		<!--{if $multiple}--><strong>{lang poll_multiple}{lang thread_poll}</strong><!--{if $maxchoices}-->: ( {lang poll_more_than} )<!--{/if}--><!--{else}--><strong>{lang poll_single}{lang thread_poll}</strong><!--{/if}--><!--{if $visiblepoll && $allowvote}--> , {lang poll_after_result}<!--{/if}--><!--{if $showpollvoters}-->, {lang poll_voterscount}<!--{/if}-->
+		<!--{if !$visiblepoll && ($overt || $adminid == 1)}-->
+			<a href="plugin.php?id=imgpoll:viewvote&tid=$tid" onclick="showWindow('viewvote', this.href);doane(event);">{lang poll_view_voters}</a>
+		<!--{/if}-->
+		<!--{if $allowpollnum_last && $allowpollnum && $allowguestpoll && $showallowpollnum}-->
+		<p>{lang imgpoll:viewthread_imgpoll_maxpollnum1} $allowpollnum {lang imgpoll:viewthread_imgpoll_maxpollnum2} $allowpollnum_last {lang imgpoll:viewthread_imgpoll_maxpollnum3}</p>
+		<!--{/if}-->
+		</span>
+		<!--{if !$visiblepoll}-->
+		<ul class="imgpoll_order">
+			<li<!--{if empty($imgpollorder)}--> class="current"<!--{/if}-->><a href="{$thethreadurl}"><span>{lang imgpoll:viewthread_imgpoll_oredrbydisplayorder}</span></a></li>
+			<li<!--{if $imgpollorder == 'views'}--> class="current"<!--{/if}-->><a href="{$thethreadurl}&imgpollorder=views"><span>{lang imgpoll:viewthread_imgpoll_oredrbyviews}</span></a></li>
+			<li<!--{if $imgpollorder == 'votes'}--> class="current"<!--{/if}-->><a href="{$thethreadurl}&imgpollorder=votes"><span>{lang imgpoll:viewthread_imgpoll_oredrbyvotes}</span></a></li>
+		<ul>
+		<!--{/if}-->
+	</div>
+
+	<!--{if $thread[remaintime]}-->
+	<p class="polltimer">
+		{lang poll_count_down}:
+		<strong>
+		<!--{if $thread[remaintime][0]}-->$thread[remaintime][0] {lang days}<!--{/if}-->
+		<!--{if $thread[remaintime][1]}-->$thread[remaintime][1] {lang poll_hour}<!--{/if}-->
+		$thread[remaintime][2] {lang poll_minute}
+		</strong>
+	</p>
+	<!--{elseif $expiration && $expirations < $timestamp}-->
+	<p class="polltimer"><strong>{lang poll_end}</strong></p>
+	<!--{/if}-->
+
+	<div class="pollchart" style="width:100%">
+		<table summary="poll panel" cellspacing="0" cellpadding="0" width="100%">
+			<!--{loop $polloptions $key $option}-->
+				<!--{eval $i = $key + 1;}-->
+				<!--{if $i%5 == 1}-->
+				<tr>
+				<!--{/if}-->
+					<td class="polloption vote" width="20%">
+						<div class="polloption_img"><img src="$option[attachment]"></div>
+					<!--{if $allowvote && $optiontype=='checkbox'}-->
+						<span class="selector"><input class="checkbox" type="checkbox" id="option_$key" name="pollanswers[]" value="$option[polloptionid]" onclick="checkbox(this)" /></span>
+					<!--{/if}-->
+						$i. &nbsp;$option[polloption] &nbsp;<a href="plugin.php?id=imgpoll:more&tid=$tid&optionid=$option[polloptionid]" onclick="showWindow('viewmore', this.href);doane(event);">{lang imgpoll:viewthread_imgpoll_more}</a>
+						<!--{if !$visiblepoll}-->
+						<br>{lang imgpoll:viewthread_imgpoll_votenum}£º$option[votes] &nbsp;{lang imgpoll:viewthread_imgpoll_viewnum}£º$option[views]
+						<!--{/if}-->
+						<!--{if $allowvote && $optiontype!='checkbox'}--><br><button class="submit" type="submit" name="pollsubmit" value="true" onclick="javascript:$('optionid').value='$option[polloptionid]';">{lang imgpoll:viewthread_imgpoll_pollvote}</button><!--{/if}-->
+					</td>
+				<!--{if $i%5 == 0}-->
+				</tr>
+				<!--{/if}-->
+			<!--{/loop}-->
+			<tr>
+				<td colspan="5" align="center" <!--{if !$allowvote}-->class="imgpoll_msg"<!--{/if}-->>
+					<!--{if $allowvote}-->
+						<!--{if $optiontype=='checkbox'}-->
+							<!--{if !$allowguestpoll && (empty($discuz_uid) || $groupid == 7)}-->
+							<button class="submit" type="button" disabled="disabled" name="pollsubmit" id="pollsubmit" onclick="showWindow('login', 'plugin.php?id=imgpoll:votepoll&tid=$tid');return false;">{lang imgpoll:viewthread_imgpoll_pollvote}</button>
+							<!--{else}-->
+							<button class="submit" type="submit" disabled="disabled" name="pollsubmit" id="pollsubmit" value="true">{lang imgpoll:viewthread_imgpoll_pollvote}</button>
+							<!--{/if}-->
+						<!--{else}-->
+							<input type="hidden" id="optionid" name="pollanswers[]" value="">
+							<input type="hidden" id="pollsubmit" name="pollsubmit" value="true">
+						<!--{/if}-->
+						<!--{if $overt}-->
+							({lang poll_msg_overt})
+						<!--{/if}-->
+					<!--{elseif !$allowvotepolled}-->
+						{lang poll_msg_allowvotepolled}
+					<!--{elseif !$allowvotethread}-->
+						{lang poll_msg_allowvotethread}
+					<!--{/if}-->
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+<!--{if $imgpollsuccess == 1}-->
+<script type="text/javascript" language="javascript">showPrompt(null, null, 'Í¶Æ±³É¹¦', 2000, 1);</script>
+<!--{/if}-->
+<!--{/block}-->
